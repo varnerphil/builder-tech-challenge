@@ -15,9 +15,9 @@ interface PageProps {
 export default async function Page(props: PageProps) {
   const builderModelName = "page";
 
-  // Get locale from cookies or default to "Default"
+  // Get locale from cookies or default to "en-US"
   const cookieStore = cookies();
-  const locale = cookieStore.get("locale")?.value || "Default";
+  const locale = cookieStore.get("locale")?.value || "en-US";
 
   // console.log("props", props);
 

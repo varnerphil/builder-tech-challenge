@@ -19,12 +19,12 @@ declare global {
 }
 
 export function LocalePicker() {
-  const [locale, setLocale] = useState("Default");
+  const [locale, setLocale] = useState("en-US");
 
   useEffect(() => {
     const storedInCookie = Cookies.get("locale");
     const storedInLocalStorage = localStorage.getItem("locale");
-    const fallback = navigator.language || "Default";
+    const fallback = navigator.language || "en-US";
     const localeToUse = storedInCookie || storedInLocalStorage || fallback;
     
     setLocale(localeToUse);
