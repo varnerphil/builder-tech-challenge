@@ -25,8 +25,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
   const slug = params.slug.join('/');
-  console.log('params.slug: ', params.slug);
-  console.log('slug: ', slug);
   const cookieStore = cookies();
   const locale = cookieStore.get("locale")?.value || "en-US";
   
@@ -56,16 +54,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const slug = params.slug.join('/');
   
-  // Debug info
-  console.log('------------ DEBUG: BLOG POST PAGE -------------');
-  console.log('params.slug: ', params.slug);
-  console.log('Joined slug: ', slug);
-  console.log('Model Name:', builderModelName);
-  console.log('Full URL path:', `/blog/${slug}`);
-  console.log('Locale:', locale);
-  
   // Instead of using URL targeting, fetch all articles and filter by name
-  console.log('Looking for blog article with name matching slug:', slug);
   
   // Get all blog articles
   const allArticles = await builder
@@ -79,8 +68,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       limit: 20
     });
   
-  console.log('Total articles found:', allArticles?.length || 0);
-  
   // Helper function to normalize strings for comparison
   const normalize = (str: string) => {
     if (!str) return '';
@@ -91,18 +78,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // Normalize the URL slug for comparison
   const normalizedSlug = normalize(slug);
-  console.log('Normalized URL slug:', normalizedSlug);
-  
-  // Dump all articles for debugging
-  allArticles?.forEach((article: any, index: number) => {
-    console.log(`Article ${index}:`, {
-      id: article.id,
-      name: article.name,
-      normalizedName: 'blog' + normalize(article.name),
-      slug: article.data?.slug,
-      normalizedDataSlug: normalize(article.data?.slug || ''),
-    });
-  });
   
   // Filter to find the one matching our slug by name with more flexible matching
   const content = allArticles?.find((article: any) => {
@@ -114,12 +89,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const normalizedName = normalize(articleName);
     const normalizedDataSlug = normalize(articleSlug || '');
     
-    console.log('Comparing:', {
-      normalizedName,
-      normalizedDataSlug,
-      normalizedSlug
-    });
-    
     // Try multiple matching strategies
     return normalizedName === normalizedSlug || // Normalized name match
            normalizedDataSlug === normalizedSlug || // Normalized slug field match
@@ -128,25 +97,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
            normalizedSlug.includes(normalizedName) || // Slug contains name
            normalizedName.includes(normalizedSlug); // Name contains slug
   }) || null;
-  
-  console.log('Matched article found:', content ? 'Yes' : 'No');
-    
-  // Log the response
-  console.log('Builder.io API Response:', content ? 'Content found' : 'No content');
-  if (content) {
-    console.log('Content ID:', content.id);
-    console.log('Content name:', content.name);
-    console.log('Content data.slug:', content.data?.slug);
-    console.log('Content data.title:', content.data?.title);
-    console.log('Content lastUpdated:', content.lastUpdated);
-  } else {
-    console.log('No content returned from Builder.io API');
-  }
-  console.log('------------ END DEBUG -------------');
+
 
   if (!content) return notFound();
-
-  console.log('content', content);
 
   return (
     <>
