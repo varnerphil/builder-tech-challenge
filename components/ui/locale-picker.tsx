@@ -5,8 +5,7 @@ import Cookies from "js-cookie";
 
 const supportedLocales = [
   { code: "en-US", label: "English" },
-  { code: "fr-FR", label: "Français" },
-  { code: "es-MX", label: "Español (México)" },
+  { code: "es-ES", label: "Español" },
 ];
 
 declare global {
