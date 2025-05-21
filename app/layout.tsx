@@ -13,9 +13,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerContent = await builder
-    .get("header-links", { fields: "data" })
-    .toPromise();
+  // Only fetch the banner content now
   const bannerContent = await builder.get("banner").toPromise();
   return (
     <html lang="en">
@@ -23,7 +21,7 @@ export default async function RootLayout({
         <QueryProvider>
           <main>
             {bannerContent && <RenderBuilderContent model="banner" content={bannerContent} />}
-            <Header content={headerContent} />
+            <Header />
             <div className="container"><HydrationOverlay>{children}</HydrationOverlay></div>
           </main>
         </QueryProvider>

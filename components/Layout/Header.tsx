@@ -16,48 +16,45 @@ import {
 import { AuthSlider } from "./AuthSlider"
 import { CartSlider } from "./CartSlider"
 import { SideNav } from "./SideNav"
-import { BuilderContent } from '@builder.io/react';
 
 
-export function Header({ headerContent }: any) {
+export function Header() {
+  // Hardcoded navigation links
+  const navLinks = [
+    { path: "/", label: "Home", highlight: false },
+    // { path: "/products", label: "Products", highlight: false },
+    { path: "/blog-feed", label: "Blog", highlight: true },
+    // { path: "/about", label: "About", highlight: false },
+  ];
+
   return (
-    <BuilderContent model="header-links" content={headerContent}>
-      {(data) => (
-        <header className="w-full flex flex-1 border-y mb-4">
-          <div className="px-4 p-3 flex justify-between container">
-
-            <NavigationMenuItem className="flex md:hidden">
-              <SideNav />
-            </NavigationMenuItem>
-            <Button variant="link" asChild>
-              <Link href="/" passHref>
-                <span className="text-xl font-bold">SaaS4U</span>
-              </Link>
-            </Button>
-            <NavigationMenu className="hidden md:flex space-x-5">
-              <NavigationMenuList className="justify-around w-full">
-                {data?.headerLinks.map((item: any, index: number) => {
-                  return (
-                    <Button key={index} variant="link" className="text-md">
-                      <Link href={item.path || '/'} legacyBehavior passHref >
-                        {/* <NavigationMenuLink className={navigationMenuTriggerStyle()}> */}
-                        <span className={`uppercase ${item.highlight ? "text-rose-500" : ""}`}>{item.label}</span>
-                        {/* </NavigationMenuLink> */}
-                      </Link>
-                    </Button>
-                  )
-                })}
-              </NavigationMenuList>
-            </NavigationMenu>
-            <div className="flex items-center">
-              <CartSlider variant="black" />
-              <AuthSlider variant="black" />
-            </div>
-          </div>
-        </header>
-      )
-      }
-    </BuilderContent>
+    <header className="w-full flex flex-1 border-y mb-4">
+      <div className="px-4 p-3 flex justify-between container">
+        <NavigationMenuItem className="flex md:hidden">
+          <SideNav />
+        </NavigationMenuItem>
+        <Button variant="link" asChild>
+          <Link href="/" passHref>
+            <span className="text-xl font-bold">SaaS4U</span>
+          </Link>
+        </Button>
+        <NavigationMenu className="hidden md:flex space-x-5">
+          <NavigationMenuList className="justify-around w-full">
+            {navLinks.map((item, index) => (
+              <Button key={index} variant="link" className="text-md">
+                <Link href={item.path} legacyBehavior passHref>
+                  <span className={`uppercase ${item.highlight ? "text-rose-500" : ""}`}>{item.label}</span>
+                </Link>
+              </Button>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+        <div className="flex items-center">
+          <CartSlider variant="black" />
+          <AuthSlider variant="black" />
+        </div>
+      </div>
+    </header>
   );
 }
 
