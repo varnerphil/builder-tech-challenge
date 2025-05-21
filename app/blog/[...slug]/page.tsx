@@ -13,7 +13,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  const allPosts = await builder.getAll('blog-post', {
+  const allPosts = await builder.getAll('blog-article', {
     options: { noTargeting: true },
   });
 
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
   const slug = params.slug.join('/');
   const content = await builder
-    .get('blog-post', {
+    .get('blog-article', {
       userAttributes: {
         urlPath: `/blog/${slug}`,
       },
@@ -38,32 +38,42 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const slug = params.slug.join('/');
+  const builderModelName = "blog-article";
   
   // Get locale from cookies or default to "en-US"
   const cookieStore = cookies();
   const locale = cookieStore.get("locale")?.value || "en-US";
 
+  const slug = params.slug.join('/');
+
   const content = await builder
-    .get('blog-post', {
+    // Get the blog post content from Builder with the specified options
+    .get(builderModelName, {
       options: {
         locale: locale,
+        enrich: false
       },
       userAttributes: {
-        urlPath: `/blog/${slug}`,
+        // Use the slug path specified in the URL to fetch the content
+        urlPath: `/blog/${slug}`
       },
     })
+    // Convert the result to a promise
     .toPromise();
 
   if (!content) return notFound();
 
   return (
-    <RenderBuilderContent 
-      content={content} 
-      model="blog-post" 
-      options={{ 
-        locale: locale 
-      }} 
-    />
+    <>
+      {/* Render the Builder blog post */}
+      <RenderBuilderContent 
+        content={content} 
+        model={builderModelName} 
+        options={{ 
+          locale: locale, 
+          enrich: false 
+        }} 
+      />
+    </>
   );
 }
