@@ -24,10 +24,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
   const slug = params.slug.join('/');
+  console.log('slug: ', slug);
   const content = await builder
     .get('blog-article', {
       userAttributes: {
-        urlPath: `/blog/${slug}`,
+        urlPath: slug,
       },
     })
     .toPromise();
@@ -55,7 +56,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       },
       userAttributes: {
         // Use the slug path specified in the URL to fetch the content
-        urlPath: `/blog/${slug}`
+        urlPath: slug
       },
     })
     // Convert the result to a promise
