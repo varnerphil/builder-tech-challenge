@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 export default async function BlogIndexPage() {
-  const builderModelName = "blog-index";
+  const builderModelName = "blog-feed";
   
   // Get locale from cookies or default to "en-US"
   const cookieStore = cookies();
