@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .get(builderModelName, {
       options: {
         locale: locale,
-        enrich: true
+        enrich: false
       },
       userAttributes: {
         // Use the slug path specified in the URL to fetch the content
