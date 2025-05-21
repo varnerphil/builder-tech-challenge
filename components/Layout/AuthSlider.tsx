@@ -2,6 +2,8 @@
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import { useEffect, useState } from "react"
+import Cookies from "js-cookie"
 import {
   Sheet,
   SheetClose,
@@ -18,10 +20,17 @@ type AuthSliderProps = {
 };
 
 export const AuthSlider: React.FC<AuthSliderProps> = ({ variant }) => {
+  const [signInText, setSignInText] = useState("Sign In")
+  
+  useEffect(() => {
+    const locale = Cookies.get("locale") || "en-US"
+    setSignInText(locale === "es-ES" ? "Iniciar Sesión" : "Sign In")
+  }, [])
+
   return (
     <Sheet key="side">
         <SheetTrigger asChild>
-          <Button className="px-5 py-2.5 bg-black text-white" variant={variant === "white" ? "outline" : "default"}>Sign In</Button>
+          <Button className="px-5 py-2.5 bg-black text-white" variant={variant === "white" ? "outline" : "default"}>{signInText}</Button>
         </SheetTrigger>
         <SheetContent side="right">
         <SheetHeader>
