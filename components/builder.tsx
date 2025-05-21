@@ -2,7 +2,7 @@
 import { ComponentProps } from "react";
 import { BuilderComponent, Builder, builder, useIsPreviewing } from "@builder.io/react";
 import DefaultErrorPage from "next/error";
-import "../builder-registry";
+import "../builder-registry.ts";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 

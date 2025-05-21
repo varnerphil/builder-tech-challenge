@@ -21,11 +21,12 @@ export default async function Page(props: PageProps) {
 
   // console.log("props", props);
 
-  const content = await builder
+  const pageContent = await builder
     // Get the page content from Builder with the specified options
     .get(builderModelName, {
       options: {
-        locale: locale
+        locale: locale,
+        enrich: false
       },
       userAttributes: {
         // Use the page path specified in the URL to fetch the content
@@ -38,7 +39,7 @@ export default async function Page(props: PageProps) {
   return (
     <>
       {/* Render the Builder page */}
-      <RenderBuilderContent content={content} model={builderModelName} options={{ locale: locale, enrich: true }} />
+      <RenderBuilderContent content={pageContent} model={builderModelName} options={{ locale: locale, enrich: false }} />
     </>
   );
 }

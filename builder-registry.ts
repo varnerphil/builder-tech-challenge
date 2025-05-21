@@ -10,14 +10,14 @@ import IconCard from "./components/Card/IconCard";
 import ImageHero from "./components/Hero/ImageHero";
 import SplitHero from "./components/Hero/SplitHero";
 import TextHero from "./components/Hero/TextHero";
-import { LocalePicker } from "./components/ui/LocalePicker";
+import { LocalePicker } from "./components/ui/locale-picker";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 Builder.register("editor.settings", {
   styleStrictMode: false,
   allowOverridingTokens: true,
-  models: ["page"],
+  models: ["page", "blog-post"],
   designTokens: {
     colors: [
       { name: "Primary", value: "var(--color-primary, #000000)" },

@@ -27,7 +27,7 @@ export default async function Homepage(props: PageProps) {
         urlPath: "/",
         options: {
           locale: locale,
-          enrich: true
+          enrich: false
         }
       },
     })
@@ -37,7 +37,7 @@ export default async function Homepage(props: PageProps) {
   return (
     <>
       {/* Render the Builder page */}
-      <RenderBuilderContent content={content} model={builderModelName} options={{ locale: locale, enrich: true }} />
+      <RenderBuilderContent content={content} model={builderModelName} options={{ locale: locale, enrich: false }} />
     </>
   );
 }

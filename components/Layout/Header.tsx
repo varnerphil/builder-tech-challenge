@@ -31,12 +31,7 @@ export function Header({ headerContent }: any) {
             </NavigationMenuItem>
             <Button variant="link" asChild>
               <Link href="/" passHref>
-                <img
-                  className="h-6"
-                  src="https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F692369ff646645349e68a86b43fc7a38"
-                  alt="Builder.io Logo"
-                  loading="lazy"
-                />
+                <span className="text-xl font-bold">SaaS4U</span>
               </Link>
             </Button>
             <NavigationMenu className="hidden md:flex space-x-5">
